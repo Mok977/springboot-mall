@@ -18,16 +18,16 @@ public class ProductDaoImp implements ProductDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Override
     public Product getProductById(Integer productId) {
-        String sql = "create product_id,product_name, category, image_url, price, stock, description, " +
+        String sql = "select product_id,product_name, category, image_url, price, stock, description, " +
                 "created_date, last_modified_date " +
-                "From product Where product_id=:productId";
+                "From product Where product_id = :productId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("productId", productId);
 
         List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
 
-        if(productList.size()>0){
+        if(productList.size() > 0){
             return productList.get(0);
         }else {
             return null;

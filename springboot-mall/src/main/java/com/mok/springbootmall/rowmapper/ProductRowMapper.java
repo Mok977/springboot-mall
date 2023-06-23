@@ -14,14 +14,14 @@ public class ProductRowMapper implements RowMapper<Product> {
     Product product = new Product();
 
     product.setProductId(resultSet.getInt("product_id"));
-    product.getProductName(resultSet.getString("name"));
-    product.setCategory(resultSet.getString("Category"));
-    product.setImageUrl(resultSet.getString("ImageUrl"));
-    product.setPrice(resultSet.getInt("Price"));
-    product.setStock(resultSet.getInt("Stock"));
-    product.setDescription(resultSet.getString("Description"));
-    product.setCreatedDate(resultSet.getTimestamp("CreatedDate"));
-    product.setLastModifiedDate(resultSet.getTimestamp("LastModifiedDate"));
+    product.setProductName(resultSet.getString("product_name"));
+    product.setCategory(resultSet.getString("category"));
+    product.setImageUrl(resultSet.getString("image_url"));
+    product.setPrice(resultSet.getInt("price"));
+    product.setStock(resultSet.getInt("stock"));
+    product.setDescription(resultSet.getString("description"));
+    product.setCreatedDate(resultSet.getTimestamp("created_date"));
+    product.setLastModifiedDate(resultSet.getTimestamp("last_modified_date"));
 
     return product;
     }
