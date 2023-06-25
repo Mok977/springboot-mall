@@ -2,6 +2,7 @@ package com.mok.springbootmall.controller;
 
 
 import com.mok.springbootmall.constant.ProductCategory;
+import com.mok.springbootmall.dto.ProductQueryParams;
 import com.mok.springbootmall.dto.ProductRequest;
 import com.mok.springbootmall.model.Product;
 import com.mok.springbootmall.service.ProductService;
@@ -27,8 +28,12 @@ public class ProductController {
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search
             ){
+        ProductQueryParams productQueryParams = new ProductQueryParams();
+        productQueryParams.setCategory(category);
+        productQueryParams.setSearch(search);
+
         //值傳進去dao層 //前端傳查詢時可選擇類別 //後加上?category=FOOD
-        List<Product>productList = productService.getProducts(category, search);
+        List<Product>productList = productService.getProducts(productQueryParams);
 
         return  ResponseEntity.status(HttpStatus.OK).body(productList);
     }
