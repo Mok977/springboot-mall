@@ -1,6 +1,7 @@
 package com.mok.springbootmall.controller;
 
 
+import com.mok.springbootmall.constant.ProductCategory;
 import com.mok.springbootmall.dto.ProductRequest;
 import com.mok.springbootmall.model.Product;
 import com.mok.springbootmall.service.ProductService;
@@ -11,12 +12,26 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    //篩選功能
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getProducts(
+            //required = false 可選的參數
+            @RequestParam(required = false) ProductCategory category,
+            @RequestParam(required = false) String search
+            ){
+        //值傳進去dao層 //前端傳查詢時可選擇類別 //後加上?category=FOOD
+        List<Product>productList = productService.getProducts(category, search);
+
+        return  ResponseEntity.status(HttpStatus.OK).body(productList);
+    }
 
     @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable Integer productId){
