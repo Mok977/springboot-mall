@@ -21,18 +21,25 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    //篩選功能
+    // 篩選功能
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getProducts(
-            //required = false 可選的參數
+            // required = false 可選的參數
+            // 控制參數 Filtering
             @RequestParam(required = false) ProductCategory category,
-            @RequestParam(required = false) String search
+            @RequestParam(required = false) String search,
+
+            // 排序 Sorting
+            @RequestParam(defaultValue = "created_date") String orderBy,
+            @RequestParam(defaultValue = "desc") String sort
             ){
         ProductQueryParams productQueryParams = new ProductQueryParams();
         productQueryParams.setCategory(category);
         productQueryParams.setSearch(search);
+        productQueryParams.setOrderBy(orderBy);
+        productQueryParams.setSort(sort);
 
-        //值傳進去dao層 //前端傳查詢時可選擇類別 //後加上?category=FOOD
+        // 值傳進去dao層 // 前端傳查詢時可選擇類別 // 後加上?category=FOOD
         List<Product>productList = productService.getProducts(productQueryParams);
 
         return  ResponseEntity.status(HttpStatus.OK).body(productList);
